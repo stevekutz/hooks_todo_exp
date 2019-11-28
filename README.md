@@ -23,3 +23,20 @@
         import addReactNDevTools from 'reactn-devtools';
         addReactNDevTools();
         ~~~
+    - To utilize the `redux devtools extension` with 'hooks, add the following to `src/index.js`
+        import `StateInspector`
+        ~~~
+        import { StateInspector } from 'reinspect';
+        ~~~
+        Define a `Wrapper` component and wrap the `App` component 
+        ~~~
+        const Wrapper = () => {
+            return (
+                <StateInspector>
+                    <App/>
+                </StateInspector>
+            )
+        }
+
+        ReactDOM.render(<Wrapper />, document.getElementById('root'));
+        ~~~        
