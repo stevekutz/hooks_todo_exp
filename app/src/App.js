@@ -2,6 +2,7 @@ import React , {useEffect}from 'react';
 import './index.css';
 import {useState} from 'reinspect';
 import Select from 'react-select';
+import {Form} from 'semantic-ui-react';
 //import SelectCreateFilter from './CustomiizedSelect';
 
 // const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center',
@@ -29,66 +30,69 @@ const options = [
 //     ...selectOptions,
 //   ];
 
+
 function App (){
     const [task, setTask] = useState('', "Task");
     const [todos, setTodos] = useState([], "Todos");
     const [priority, setPriority] = useState('', "Priority");
-    const [updatedTask, setUpdatedTask] = useState('', "Updated Task");
+    let [updatedTask, setUpdatedTask] = useState('', "Updated Task");
     const [activeIndex, setActiveIndex] = useState('', 'Active Index');
-   
-
+    
+    
     const initial = {selectedKey: null};
     const [dropDownVal, setDropDownVal] = useState(initial, "DropDownValues")
-
+    
     const updateDropDown = value => {
         setDropDownVal({...dropDownVal, selectedKey: value});  
     }
-
+    
     const handleChange = e => {
         const {value, name} =  e.target;
-
+        
         setTask(value);
         console.log('value is ', value);
-
+        
     }
-
+    
     const handleActiveIndex = (e) => {
         const {value, id} = e.target;
         console.log('Active id is currently ', id);
         setActiveIndex(id);
+        // initialize input field with current todo value
+        setUpdatedTask(todos[id].value)
     }
-
+    
     const handleUpdatedTask = (e) => {
         const {value, id} = e.target;
-    
+        
         
         if(activeIndex === id) {
             setUpdatedTask(value);
         }
     }
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        
         const newTask = {
             value: task,
             priority: dropDownVal.selectedKey,
             complete: false,
         }
-
+        
         console.log('newTask is ', newTask);  
         if(task !== '' && priority !== null) {
             setTodos([...todos, newTask]);
             setTask('');
             setDropDownVal(initial);
         }
-
+        
     }  
-
+    
     const clearTodos = () => {
         setTodos([]);
     }
-
+    
     const handleDelete = (id) => {
         console.log('id  is ', id);
         todos.splice(id, 1);
@@ -97,19 +101,19 @@ function App (){
     
     const toggleComplete = (e, value2) => {
         let {id} = e.target
-
+        
         todos[id].complete = !todos[id].complete;
         setTodos([...todos]);
     }
-  
-    const handlePriority = async (e) => {
     
+    const handlePriority = async (e) => {
+        
         const {value, id} =  e.target;
-
+        
         return await setPriority(value);
- 
+        
     }
-  
+    
     const updateTask = (e) =>{
         let {id} = e.target
         console.log('UP index is ', id);
@@ -121,9 +125,9 @@ function App (){
             if(updatedTask) {
                 todos[id].value = updatedTask;
             }
-        setTodos([...todos]);
+            setTodos([...todos]);
         }
-
+        
         // setPriority('');
         setUpdatedTask('');
         setActiveIndex('');
@@ -143,6 +147,7 @@ function App (){
                 // filterOptions = {filterOptions}
             />
 
+            
             <input
                 style = {{width: '100%', outlineStyle: 'none'}}
                 placeholder = 'the placeholder text'
