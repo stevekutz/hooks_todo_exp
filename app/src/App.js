@@ -1,9 +1,9 @@
 import React , {useEffect}from 'react';
-import './index.css';
+// import './index.css';
 import {useState} from 'reinspect';
 import Select from 'react-select';
-import {Form} from 'semantic-ui-react';
-//import SelectCreateFilter from './CustomiizedSelect';
+
+//import SelectCreateFilter from './CustomizedSelect';
 
 // const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center',
 //                   margin: '2px auto', flexDirection: 'column', width: '95%', border: '1px solid blue' }
@@ -53,19 +53,20 @@ function App (){
         console.log('value is ', value);
         
     }
-    
+    // if(value !== undefined) causes "Cannot read property 'value' of undefined"
     const handleActiveIndex = (e) => {
         const {value, id} = e.target;
-        console.log('Active id is currently ', id);
+
         setActiveIndex(id);
+
         // initialize input field with current todo value
-        setUpdatedTask(todos[id].value)
+        if(value) setUpdatedTask(todos[id].value)
     }
     
     const handleUpdatedTask = (e) => {
         const {value, id} = e.target;
         
-        
+        console.log('activeIndex is of type ', typeof(activeIndex));
         if(activeIndex === id) {
             setUpdatedTask(value);
         }
@@ -89,6 +90,7 @@ function App (){
     
     const clearTodos = () => {
         setTodos([]);
+        resetPriorityTaskIndex();
     }
     
     const handleDelete = (id) => {
@@ -97,19 +99,16 @@ function App (){
         setTodos([...todos]);
     }
     
-    const toggleComplete = (e, value2) => {
+    const toggleComplete = (e) => {
         let {id} = e.target
         
         todos[id].complete = !todos[id].complete;
         setTodos([...todos]);
     }
     
-    const handlePriority = async (e) => {
-        
-        const {value, id} =  e.target;
-        
-        return await setPriority(value);
-        
+    const handlePriority = async (e) => {    
+        const {value, id} =  e.target;    
+        return await setPriority(value);        
     }
     
     const updateTask = (e) =>{
@@ -117,16 +116,20 @@ function App (){
         console.log('UP index is ', id);
         // await setPriority(value);
         if(activeIndex === id ){
-            if(priority !== null){
+            if(priority !== ''){
                 todos[id].priority = priority;
             }
             if(updatedTask) {
                 todos[id].value = updatedTask;
             }
             setTodos([...todos]);
-        }
+        } 
         
-        // setPriority('');
+        resetPriorityTaskIndex();
+    }
+
+    const resetPriorityTaskIndex = () => {
+        setPriority('');
         setUpdatedTask('');
         setActiveIndex('');
     }
@@ -144,7 +147,6 @@ function App (){
                 options = {options}
                 // filterOptions = {filterOptions}
             />
-
             
             <input
                 style = {{width: '100%', outlineStyle: 'none'}}
@@ -154,7 +156,6 @@ function App (){
             />
         
             <form  onSubmit = {handleSubmit}>
-
                 <div> 
                     <div>
                         <button type = 'submit' > Add Todo </button> 
@@ -167,30 +168,33 @@ function App (){
     
         <div > 
             {todos.map((item, index) => (
-                <div key = {index} id = {index}  style = {taskStyle}>
+                <div key = {index} id = {index}  style = {taskStyle} onClick = {(index) => handleActiveIndex(index)}>
         
                     <div > Task : {item.value}    </div>
+                    <div> index is of type : {typeof(index)}</div>
                     <label>Task:</label>
                     <input
                         style = {{outlineStyle: 'none'}}
                         label = 'Task: '
                         placeholder = {todos[index].value}
                         id = {index}
-                        value = {index == activeIndex  ? updatedTask : todos[index].value}
-                        onChange = {(index) => handleUpdatedTask(index)}
-                        onClick = {(index) => handleActiveIndex(index)}
+                        value = {index.toString() === activeIndex  ? updatedTask : todos[index].value}
+                        onChange = {(id) => handleUpdatedTask(id)}
                     
                     />
                     <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
                     <div>Priority: {item.priority}</div>
-                    <select id = {index} onChange = {handlePriority} onClick = {(index) => handleActiveIndex(index)}>
-                        <option  id = {index} > Low </option>
-                        <option  id = {index} > Medium </option>
-                        <option  id = {index} > High </option>
+
+                    <select id = {index} onChange = {handlePriority} >
+                        <option  > Low </option>
+                        <option > Medium </option>
+                        <option  > High </option>
                     </select>
+
                     <button id = {index} onClick = {(id) => updateTask(id)} > Update Task</button>
                     <button onClick = {handleDelete} > delete todo</button>
                     <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
+
                 </div>
             ))}
         
