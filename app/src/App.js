@@ -79,14 +79,12 @@ function App (){
             priority: dropDownVal.selectedKey,
             complete: false,
         }
-        
-        console.log('newTask is ', newTask);  
+
         if(task !== '' && priority !== null) {
             setTodos([...todos, newTask]);
             setTask('');
             setDropDownVal(initial);
-        }
-        
+        }        
     }  
     
     const clearTodos = () => {
@@ -119,7 +117,7 @@ function App (){
         console.log('UP index is ', id);
         // await setPriority(value);
         if(activeIndex === id ){
-            if(priority){
+            if(priority !== null){
                 todos[id].priority = priority;
             }
             if(updatedTask) {
@@ -185,7 +183,7 @@ function App (){
                     />
                     <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
                     <div>Priority: {item.priority}</div>
-                    <select id = {index} onChange = {handlePriority}>
+                    <select id = {index} onChange = {handlePriority} onClick = {(index) => handleActiveIndex(index)}>
                         <option  id = {index} > Low </option>
                         <option  id = {index} > Medium </option>
                         <option  id = {index} > High </option>
