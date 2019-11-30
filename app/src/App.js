@@ -1,35 +1,14 @@
-import React , {useEffect}from 'react';
-// import './index.css';
+import React from 'react';
 import {useState} from 'reinspect';
 import Select from 'react-select';
 
-//import SelectCreateFilter from './CustomizedSelect';
-
-// const divStyle = {display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center',
-//                   margin: '2px auto', flexDirection: 'column', width: '95%', border: '1px solid blue' }
 const taskStyle = {borderRadius: '1px 2px 2px 4px', margin: '2px', border: '1px solid grey'}
-
-// const filterOptions = (candidate, input) => {
-//     if (input) {
-//       return candidate.value === customOptions[0].value;
-//     }
-//     return true;
-//   };
-  
+ 
 const options = [
     { value: 'low', label: "Low" },
     { value: 'medium', label: "Medium" },
     { value: 'high', label: "High"}
 ];
-
-//   const customOptions = [
-//     {
-//       value: null,
-//       label: 'Select Priority Level',
-//     },
-//     ...selectOptions,
-//   ];
-
 
 function App (){
     const [task, setTask] = useState('', "Task");
@@ -47,19 +26,18 @@ function App (){
     }
     
     const handleChange = e => {
-        const {value, name} =  e.target;
-        
-        setTask(value);
-        console.log('value is ', value);
-        
+        const {value} =  e.target;    
+        setTask(value); 
     }
-    // if(value !== undefined) causes "Cannot read property 'value' of undefined"
+
     const handleActiveIndex = (e) => {
         const {value, id} = e.target;
 
         setActiveIndex(id);
 
         // initialize input field with current todo value
+        // if(value !== undefined) causes "Cannot read property 'value' of undefined'
+        //   truthy / falsey   to the rescue
         if(value) setUpdatedTask(todos[id].value)
     }
     
@@ -94,7 +72,6 @@ function App (){
     }
     
     const handleDelete = (id) => {
-        console.log('id  is ', id);
         todos.splice(id, 1);
         setTodos([...todos]);
     }
@@ -107,14 +84,13 @@ function App (){
     }
     
     const handlePriority = async (e) => {    
-        const {value, id} =  e.target;    
+        const {value} =  e.target;    
         return await setPriority(value);        
     }
     
     const updateTask = (e) =>{
         let {id} = e.target
-        console.log('UP index is ', id);
-        // await setPriority(value);
+
         if(activeIndex === id ){
             if(priority !== ''){
                 todos[id].priority = priority;
