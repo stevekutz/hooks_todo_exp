@@ -61,7 +61,7 @@
         setDropDownVal({...dropDownVal, selectedKey: value});  
         }
         ~~~
-5) ### Task management handlers
+5) ### Task management handlers for new todo item
     - A simple `change handler` is used for text input
         ~~~ js
         const handleChange = e => {
@@ -87,3 +87,4 @@
         }        
     } 
         ~~~
+6) ### 

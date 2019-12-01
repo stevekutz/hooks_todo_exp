@@ -30,7 +30,7 @@ function App (){
         setTask(value); 
     }
 
-    const handleActiveIndex = (e) => {
+    const handleUpdatedDescriptionId = (e) => {
         const {value, id} = e.target;
 
        setActiveIndex(id);
@@ -44,7 +44,7 @@ function App (){
     const handleUpdatedTask = (e) => {
         const {value, id} = e.target;
 
-        if(activeIndex === id) {
+       if(activeIndex === id) {
             setUpdatedTask(value);
         }
     }
@@ -83,7 +83,8 @@ function App (){
     }
     
     const handlePriority = async (e) => {    
-        const {value} =  e.target;    
+        const {value, id} =  e.target;
+        setActiveIndex(id);    
         return await setPriority(value);        
     }
     
@@ -145,32 +146,34 @@ function App (){
                 <div key = {index} id = {index}  style = {taskStyle}>
         
                     <div > Task : {item.value}    </div>
-                    <div> index is of type : {typeof(index)}</div>
-                    <label>Task:</label>
-                    <input
-                        style = {{outlineStyle: 'none'}}
-                        label = 'Task: '
-                        placeholder = {todos[index].value}
-                        id = {index}
-                        value = {index.toString() === activeIndex  ? updatedTask : todos[index].value}
-                        onChange = {(id) => handleUpdatedTask(id)}
-                        onClick = {(index) => handleActiveIndex(index)}
-                    />
-                    <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
-                    <div>Priority: {item.priority}</div>
+                    <div>
+                    
+                        <label>Task:</label>
+                        <input
+                            style = {{outlineStyle: 'none'}}
+                            label = 'Task: '
+                            placeholder = {todos[index].value}
+                            id = {index}
+                            value = {index.toString() === activeIndex  ? updatedTask : todos[index].value}
+                            onChange = {(id) => handleUpdatedTask(id)}
+                            onClick = {(index) => handleUpdatedDescriptionId(index)}
+                        />
 
-                    <select id = {index} onChange = {handlePriority} onClick = {(index) => handleActiveIndex(index)} >
-                        <option> Low </option>
-                        <option> Medium </option>
-                        <option> High </option>
-                    </select>
-
+                        <label>Priority: {item.priority}</label>
+                        <select id = {index} onChange = {handlePriority}>
+                            <option> Low </option>
+                            <option> Medium </option>
+                            <option> High </option>
+                        </select>
+                    </div>
                     <button 
                         id = {index} 
                         disabled = {index.toString() === activeIndex ? false : true}
                         onClick = {updateTask}
                     > Update Task</button>
+
                     <button onClick = {handleDelete} > delete todo</button>
+                    <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
                     <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
 
                 </div>
