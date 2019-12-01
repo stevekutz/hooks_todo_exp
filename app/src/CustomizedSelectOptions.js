@@ -10,7 +10,10 @@
 //     return true;
 //   };
 
-
+        // initialize input field with current todo value
+        // if(value !== undefined) causes "Cannot read property 'value' of undefined'
+        //   truthy / falsey   to the rescue
+        // if(value) setUpdatedTask(todos[id].value)
 
 
 

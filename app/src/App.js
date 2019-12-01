@@ -16,8 +16,7 @@ function App (){
     const [priority, setPriority] = useState('', "Priority");
     const [updatedTask, setUpdatedTask] = useState('', "Updated Task");
     const [activeIndex, setActiveIndex] = useState('', 'Active Index');
-    
-    
+        
     const initial = {selectedKey: null};
     const [dropDownVal, setDropDownVal] = useState(initial, "DropDownValues")
     
@@ -31,20 +30,15 @@ function App (){
     }
 
     const handleUpdatedDescriptionId = (e) => {
-        const {value, id} = e.target;
-
+        const {value, id} = e.target;    
         setActiveIndex(id);
-
-        // initialize input field with current todo value
-        // if(value !== undefined) causes "Cannot read property 'value' of undefined'
-        //   truthy / falsey   to the rescue
-        if(value) setUpdatedTask(todos[id].value)
+        if(value !== undefined) setUpdatedTask(todos[id].value)
     }
     
     const handleUpdatedTask = (e) => {
         const {value, id} = e.target;
-
-       if(activeIndex === id) {
+    
+        if(activeIndex === id) {
             setUpdatedTask(value);
         }
     }
@@ -84,12 +78,13 @@ function App (){
     
     const handlePriority = async (e) => {    
         const {value, id} =  e.target;
+
         setActiveIndex(id);    
         return await setPriority(value);        
     }
     
     const updateTask = (e) =>{
-        let {id} = e.target
+        const {id} = e.target
 
         if(activeIndex === id ){
             if(priority !== ''){
@@ -105,6 +100,7 @@ function App (){
     }
 
     const resetPriorityTaskIndex = () => {
+        setUpdatedTask('');
         setPriority('');
         setActiveIndex('');
     }

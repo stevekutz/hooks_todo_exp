@@ -1,14 +1,11 @@
 # A full CRUD todo list using controlled components managed using hooks and react-select
-##  Updatable controlled components(input & select) are part of each todo list item.
-  - ## The input field is is preset to match the current `todo item description text`.
-  - ## A traditional select component is used to reset the `todo priority level: Low, Medium, High`
-
-
-- ## Using native select components additonal logic for features such as  resetting the dropdown to a default message as opposed to the default select option.
-
-- ## Using hooks help manage the state of each todo task item so that the controlled components can be updated independently. Update buttons are `disabled` unless the ucrrent task is actively being updated.
-
-- ## ReduxDevTools functionality with hooks is made simple with the 'reinspect' dependency.
+###  Updatable controlled components(input & select) are part of each todo list item.
+- ### The input field component is preset to match the current todo item description text.
+- ### A traditional select component is used to reset the todo priority level:  
+    - Low, Medium, High. 
+- ### A Select component via the react-select dependency is used defining task priority in task creation. This allows for advanced features such as providing a default select message as opposed to a default select option. 
+- ### Using hooks help manage the state of each todo task item so that the controlled components can be updated independently. Update buttons are disabled unless the ucrrent task is actively being updated.
+- ### ReduxDevTools functionality with hooks is made simple with the reinspect dependency.
 
 
 
@@ -56,7 +53,7 @@
         const initial = {selectedKey: null};
         const [dropDownVal, setDropDownVal] = useState(initial, "DropDownValues")
         ~~~    
-    - The `react-select` component uses s special `Select` commponent with the following `props`
+    - The `react-select` component uses a special `Select` commponent with the following `props`
         ~~~ js 
         <Select
             width = '50px'
@@ -65,7 +62,7 @@
             options = {options}
         />
         ~~~   
-    - The following handler manages the dropdown down value of the `react-select` component
+    - The following handler manages the dropdown value of the `react-select` component
         ~~~ js   
         const updateDropDown = value => {
         setDropDownVal({...dropDownVal, selectedKey: value});  
@@ -110,11 +107,10 @@
             if(value) setUpdatedTask(todos[id].value)
         }
         ~~~
-        Note: Not using `value` as a truthy/falsey results in an error message
-         <div> 
-        <img style = 'margin: 10px'  src = './app/src/content/errorMSG.png' alt = 'logout callback' width = 40% />
-        </div>
-
+        The following approaches also work
+        ~~~ js
+        if(value !== undefined) setUpdatedTask(todos[id].value)
+        ~~~
         The following handler manages the updated text
         ~~~ js
         const handleUpdatedTask = (e) => {
@@ -165,9 +161,10 @@
         }
         ~~~
 7) ### Resetting state
-    - The `resetPriorityTasksIndex` is used to reset the `priority` & `activeIndex` hooks after updating a task or clearing all todos.
+    - The `resetPriorityTasksIndex` is used to reset the `updatedTask`, `priority`, and `activeIndex` hooks after updating a task or clearing all todos.
         ~~~ js
         const resetPriorityTaskIndex = () => {
+            setUpdatedTask('');
             setPriority('');
             setActiveIndex('');
         }
