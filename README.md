@@ -1,11 +1,16 @@
+# A full CRUD todo list using controlled components managed using hooks and react-select
+## Managing the state of dropdown lists using native select components requires additonal logic to control components to manage operations such as resetting the dropdown to a default message as opposed to default select option.
+
+- ## Using hooks helps simplify managing state of controlled compnents such a input fields and dropdowns that are part of the mapped out todo list.
+
+- ## ReduxDevTools functionality with hooks is made simple with the 'reinspct' dependency.
 
 
 
-
-## Important Configuration details
+### Configuration details
 1) ### Set up React app `yarn create react-app app`
 
-2) ### Add Dependencies  
+2) ### Add Dependencies  (added for future styling)
     `yarn add moment react-dom react-loader-spinner react-rainbow-components react-router-dom react-scripts react-spinners-kit reactn reactn-devtools semantic-ui-react styled-components redux reinspect redux-devtools-extension react-select`  
 
     - For `react-loaded-spinner`, you must also add `styled-components`
@@ -40,7 +45,7 @@
         const [updatedTask, setUpdatedTask] = useState('', "Updated Task");
         const [activeIndex, setActiveIndex] = useState('', 'Active Index');
         ~~~
-4) ### Configuration of the `Select` component used by`react-select`   
+4) ### Configuration of the `Select` component used by `react-select`   
     - The `react-select` component uses the following `hooks` to manage the dropdown values and reset to `Select...` after selection made
         ~~~ js
         const initial = {selectedKey: null};
@@ -116,6 +121,17 @@
         }
         ~~~
 
+        The `activeIndex` hook is used to manage the disabled state of the update button. This helps isolate task updates as only one update button will be active at a time.
+        ~~~ html
+        <button 
+            id = {index} 
+            disabled = {index.toString() === activeIndex ? false : true}
+            onClick = {updateTask}
+        > Update Task</button>        
+
+        ~~~
+
+
         Updated priority is managed with the `handlePriority` handler. A standard `select` is used to differeniate from the `react-select` component.
         ~~~ js
         const handlePriority = async (e) => {    
@@ -179,5 +195,4 @@
             todos.splice(id, 1);
             setTodos([...todos]);
         }
-        ~~~
-9) ### Deleting todos is     
+        ~~~    
