@@ -14,7 +14,7 @@ function App (){
     const [task, setTask] = useState('', "Task");
     const [todos, setTodos] = useState([], "Todos");
     const [priority, setPriority] = useState('', "Priority");
-    let [updatedTask, setUpdatedTask] = useState('', "Updated Task");
+    const [updatedTask, setUpdatedTask] = useState('', "Updated Task");
     const [activeIndex, setActiveIndex] = useState('', 'Active Index');
     
     
@@ -33,7 +33,7 @@ function App (){
     const handleActiveIndex = (e) => {
         const {value, id} = e.target;
 
-        setActiveIndex(id);
+       setActiveIndex(id);
 
         // initialize input field with current todo value
         // if(value !== undefined) causes "Cannot read property 'value' of undefined'
@@ -43,8 +43,7 @@ function App (){
     
     const handleUpdatedTask = (e) => {
         const {value, id} = e.target;
-        
-        console.log('activeIndex is of type ', typeof(activeIndex));
+
         if(activeIndex === id) {
             setUpdatedTask(value);
         }
@@ -106,24 +105,23 @@ function App (){
 
     const resetPriorityTaskIndex = () => {
         setPriority('');
-        setUpdatedTask('');
         setActiveIndex('');
     }
 
   return (
    
-    <div style = {{width: '30%', margin: '10px auto'}}>      
+    <div style = {{width: '30%', margin: '10px auto'}}> 
+        <h3> Todos with controlled components using hooks</h3>     
         <div> 
+            <label> Choose todo priority:</label>
             <Select
                 width = '50px'
                 value = {options.filter(({value}) => value === dropDownVal.selectedKey)}
-                getOptionLabel={({ label }) => label}
-                getOptionValue={({ value }) => value}
                 onChange={({ value }) => updateDropDown(value)}
                 options = {options}
-                // filterOptions = {filterOptions}
             />
             
+            <label> enter todo description: </label>
             <input
                 style = {{width: '100%', outlineStyle: 'none'}}
                 placeholder = 'the placeholder text'
@@ -144,7 +142,7 @@ function App (){
     
         <div > 
             {todos.map((item, index) => (
-                <div key = {index} id = {index}  style = {taskStyle} onClick = {(index) => handleActiveIndex(index)}>
+                <div key = {index} id = {index}  style = {taskStyle}>
         
                     <div > Task : {item.value}    </div>
                     <div> index is of type : {typeof(index)}</div>
@@ -156,18 +154,22 @@ function App (){
                         id = {index}
                         value = {index.toString() === activeIndex  ? updatedTask : todos[index].value}
                         onChange = {(id) => handleUpdatedTask(id)}
-                    
+                        onClick = {(index) => handleActiveIndex(index)}
                     />
                     <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
                     <div>Priority: {item.priority}</div>
 
-                    <select id = {index} onChange = {handlePriority} >
-                        <option  > Low </option>
-                        <option > Medium </option>
-                        <option  > High </option>
+                    <select id = {index} onChange = {handlePriority} onClick = {(index) => handleActiveIndex(index)} >
+                        <option> Low </option>
+                        <option> Medium </option>
+                        <option> High </option>
                     </select>
 
-                    <button id = {index} onClick = {(id) => updateTask(id)} > Update Task</button>
+                    <button 
+                        id = {index} 
+                        disabled = {index.toString() === activeIndex ? false : true}
+                        onClick = {updateTask}
+                    > Update Task</button>
                     <button onClick = {handleDelete} > delete todo</button>
                     <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
 

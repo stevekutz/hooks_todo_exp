@@ -43,3 +43,12 @@
 //       );
 //     }
 //   }
+
+// <Select
+// width = '50px'
+// value = {options.filter(({value}) => value === dropDownVal.selectedKey)}
+// getOptionLabel={({ label }) => label}
+// getOptionValue={({ value }) => value}
+// onChange={({ value }) => updateDropDown(value)}
+// options = {options}
+// />
