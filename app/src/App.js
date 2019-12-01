@@ -5,9 +5,9 @@ import Select from 'react-select';
 const taskStyle = {borderRadius: '1px 2px 2px 4px', margin: '2px', border: '1px solid grey'}
  
 const options = [
-    { value: 'low', label: "Low" },
-    { value: 'medium', label: "Medium" },
-    { value: 'high', label: "High"}
+    { value: 'Low', label: "Low" },
+    { value: 'Medium', label: "Medium" },
+    { value: 'High', label: "High"}
 ];
 
 function App (){
@@ -33,7 +33,7 @@ function App (){
     const handleUpdatedDescriptionId = (e) => {
         const {value, id} = e.target;
 
-       setActiveIndex(id);
+        setActiveIndex(id);
 
         // initialize input field with current todo value
         // if(value !== undefined) causes "Cannot read property 'value' of undefined'
@@ -76,7 +76,7 @@ function App (){
     }
     
     const toggleComplete = (e) => {
-        let {id} = e.target
+        const {id} = e.target
         
         todos[id].complete = !todos[id].complete;
         setTodos([...todos]);
@@ -156,7 +156,7 @@ function App (){
                             id = {index}
                             value = {index.toString() === activeIndex  ? updatedTask : todos[index].value}
                             onChange = {(id) => handleUpdatedTask(id)}
-                            onClick = {(index) => handleUpdatedDescriptionId(index)}
+                            onClick = {(id) => handleUpdatedDescriptionId(id)}
                         />
 
                         <label>Priority: {item.priority}</label>

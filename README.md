@@ -72,19 +72,112 @@
     - The `submit handler` prepares user input for the todo list. User input logic is verified before adding todo and the form is reset for the next todo.
         ~~~ js
         const handleSubmit = (e) => {
-        e.preventDefault();
-        
-        const newTask = {
-            value: task,
-            priority: dropDownVal.selectedKey,
-            complete: false,
+            e.preventDefault();
+            
+            const newTask = {
+                value: task,
+                priority: dropDownVal.selectedKey,
+                complete: false,
+            }
+
+            if(task !== '' && priority !== null) {
+                setTodos([...todos, newTask]);
+                setTask('');
+                setDropDownVal(initial);
+            }        
+        } 
+        ~~~
+6) ### Updating todo items
+    - For updating todos, the current todo text is populated into the input field for modification. The `activeIndex` hook helps manage updating for both the input field and the select dropdown. This prevents the `updatedTask` hook from updating all input fields. 
+    
+        The current task value is populates the currently selected todo input field:
+        ~~~ js
+        const handleUpdatedDescriptionId = (e) => {
+            const {value, id} = e.target;
+
+            setActiveIndex(id);
+
+            if(value) setUpdatedTask(todos[id].value)
+        }
+        ~~~
+        Note: Not using `value` as a truthy/falsey results in an error message
+         <div> 
+        <img style = 'margin: 10px'  src = './app/src/content/errorMSG.png' alt = 'logout callback' width = 40% />
+        </div>
+
+        The following handler manages the updated text
+        ~~~ js
+        const handleUpdatedTask = (e) => {
+            const {value, id} = e.target;
+
+            if(activeIndex === id) {
+                setUpdatedTask(value);
+            }
+        }
+        ~~~
+
+        Updated priority is managed with the `handlePriority` handler. A standard `select` is used to differeniate from the `react-select` component.
+        ~~~ js
+        const handlePriority = async (e) => {    
+            const {value, id} =  e.target;
+            setActiveIndex(id);    
+            return await setPriority(value);        
+        }        
+        ~~~
+
+        Each updated task is managed with the `updatedTask` handler. The logic ensures that blank text does not replace the todo description and / or a new priority has been chosen.
+        ~~~ js
+        const updateTask = (e) =>{
+            let {id} = e.target
+
+            if(activeIndex === id ){
+                if(priority !== ''){
+                    todos[id].priority = priority;
+                }
+                if(updatedTask) {
+                    todos[id].value = updatedTask;
+                }
+                setTodos([...todos]);
+            } 
+            
+            resetPriorityTaskIndex();
+        }
+        ~~~
+7) ### Resetting state
+    - The `resetPriorityTasksIndex` is used to reset the `priority` & `activeIndex` hooks after updating a task or clearing all todos.
+        ~~~ js
+        const resetPriorityTaskIndex = () => {
+            setPriority('');
+            setActiveIndex('');
+        }
+        ~~~
+        The `clearTodos` handler also resets the `todos` array.
+        ~~~ js
+        const resetPriorityTaskIndex = () => {
+            setPriority('');
+            setActiveIndex('');
         }
 
-        if(task !== '' && priority !== null) {
-            setTodos([...todos, newTask]);
-            setTask('');
-            setDropDownVal(initial);
-        }        
-    } 
+    ~~~
+8) ### Toggling Completion status
+    - The current id is used is passed as a prop for the simpler functionality of toggling & deleting todos.
+        ~~~ html
+        <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
+        <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
         ~~~
-6) ### 
+        The `event id` is used to target to appropriate todo item and the `spread operator` used to update the array.
+        ~~~ js
+        const toggleComplete = (e) => {
+            const {id} = e.target
+            
+            todos[id].complete = !todos[id].complete;
+            setTodos([...todos]);
+        }
+        ~~~
+        ~~~ js
+        const handleDelete = (id) => {
+            todos.splice(id, 1);
+            setTodos([...todos]);
+        }
+        ~~~
+9) ### Deleting todos is     
