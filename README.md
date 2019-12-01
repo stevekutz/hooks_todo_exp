@@ -1,16 +1,21 @@
 # A full CRUD todo list using controlled components managed using hooks and react-select
-## Managing the state of dropdown lists using native select components requires additonal logic to control components to manage operations such as resetting the dropdown to a default message as opposed to default select option.
+##  Updatable controlled components(input & select) are part of each todo list item.
+  - ## The input field is is preset to match the current `todo item description text`.
+  - ## A traditional select component is used to reset the `todo priority level: Low, Medium, High`
 
-- ## Using hooks helps simplify managing state of controlled compnents such a input fields and dropdowns that are part of the mapped out todo list.
 
-- ## ReduxDevTools functionality with hooks is made simple with the 'reinspct' dependency.
+- ## Using native select components additonal logic for features such as  resetting the dropdown to a default message as opposed to the default select option.
+
+- ## Using hooks help manage the state of each todo task item so that the controlled components can be updated independently. Update buttons are `disabled` unless the ucrrent task is actively being updated.
+
+- ## ReduxDevTools functionality with hooks is made simple with the 'reinspect' dependency.
 
 
 
 ### Configuration details
 1) ### Set up React app `yarn create react-app app`
 
-2) ### Add Dependencies  (added for future styling)
+2) ### Add Dependencies  (several added for future styling)
     `yarn add moment react-dom react-loader-spinner react-rainbow-components react-router-dom react-scripts react-spinners-kit reactn reactn-devtools semantic-ui-react styled-components redux reinspect redux-devtools-extension react-select`  
 
     - For `react-loaded-spinner`, you must also add `styled-components`
