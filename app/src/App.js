@@ -106,79 +106,85 @@ function App (){
     }
 
   return (
-   
-    <div style = {{width: '30%', margin: '10px auto'}}> 
-        <h3> Todos with controlled components using hooks</h3>     
-        <div> 
-            <label> Choose todo priority:</label>
-            <Select
-                width = '50px'
-                value = {options.filter(({value}) => value === dropDownVal.selectedKey)}
-                onChange={({ value }) => updateDropDown(value)}
-                options = {options}
-            />
-            
-            <label> enter todo description: </label>
-            <input
-                style = {{width: '100%', outlineStyle: 'none'}}
-                placeholder = 'the placeholder text'
-                value = {task}
-                onChange = {handleChange}          
-            />
+    <div>
+        <div style = {{width: '50%', margin: '50px auto'}} >
+            <h3> Todos with controlled components using hooks</h3> 
         
-            <form  onSubmit = {handleSubmit}>
-                <div> 
-                    <div>
-                        <button type = 'submit' > Add Todo </button> 
-                        <button onClick = {clearTodos}> Clear All Todos</button>                                   
-                    </div>
-                </div>
-                    
-            </form>
         </div>
     
-        <div > 
-            {todos.map((item, index) => (
-                <div key = {index} id = {index}  style = {taskStyle}>
-        
-                    <div > Task : {item.value}    </div>
-                    <div>
-                    
-                        <label>Task:</label>
-                        <input
-                            style = {{outlineStyle: 'none'}}
-                            label = 'Task: '
-                            placeholder = {todos[index].value}
-                            id = {index}
-                            value = {index.toString() === activeIndex  ? updatedTask : todos[index].value}
-                            onChange = {(id) => handleUpdatedTask(id)}
-                            onClick = {(id) => handleUpdatedDescriptionId(id)}
-                        />
-
-                        <label>Priority: {item.priority}</label>
-                        <select id = {index} onChange = {handlePriority}>
-                            <option> Low </option>
-                            <option> Medium </option>
-                            <option> High </option>
-                        </select>
+    
+        <div style = {{width: '30%', margin: '10px auto'}}> 
+                
+            <div> 
+                <label> Choose todo priority:</label>
+                <Select
+                    width = '50px'
+                    value = {options.filter(({value}) => value === dropDownVal.selectedKey)}
+                    onChange={({ value }) => updateDropDown(value)}
+                    options = {options}
+                />
+                
+                <label> enter todo description: </label>
+                <input
+                    style = {{width: '100%', outlineStyle: 'none'}}
+                    placeholder = 'the placeholder text'
+                    value = {task}
+                    onChange = {handleChange}          
+                />
+            
+                <form  onSubmit = {handleSubmit}>
+                    <div> 
+                        <div>
+                            <button type = 'submit' > Add Todo </button> 
+                            <button onClick = {clearTodos}> Clear All Todos</button>                                   
+                        </div>
                     </div>
-                    <button 
-                        id = {index} 
-                        disabled = {index.toString() === activeIndex ? false : true}
-                        onClick = {updateTask}
-                    > Update Task</button>
-
-                    <button onClick = {handleDelete} > delete todo</button>
-                    <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
-                    <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
-
-                </div>
-            ))}
+                        
+                </form>
+            </div>
         
-        </div>  
-        
+            <div > 
+                {todos.map((item, index) => (
+                    <div key = {index} id = {index}  style = {taskStyle}>
+            
+                        <div > Task : {item.value}    </div>
+                        <div>
+                        
+                            <label>Task:</label>
+                            <input
+                                style = {{outlineStyle: 'none'}}
+                                label = 'Task: '
+                                placeholder = {todos[index].value}
+                                id = {index}
+                                value = {index.toString() === activeIndex  ? updatedTask : todos[index].value}
+                                onChange = {(id) => handleUpdatedTask(id)}
+                                onClick = {(id) => handleUpdatedDescriptionId(id)}
+                            />
+
+                            <label>Priority: {item.priority}</label>
+                            <select id = {index} onChange = {handlePriority}>
+                                <option> Low </option>
+                                <option> Medium </option>
+                                <option> High </option>
+                            </select>
+                        </div>
+                        <button 
+                            id = {index} 
+                            disabled = {index.toString() === activeIndex ? false : true}
+                            onClick = {updateTask}
+                        > Update Task</button>
+
+                        <button onClick = {handleDelete} > delete todo</button>
+                        <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
+                        <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
+
+                    </div>
+                ))}
+            
+            </div>  
+            
+        </div>
     </div>
-   
   );
 }
 
