@@ -1,5 +1,5 @@
 # A full CRUD todo list using controlled components managed using hooks and react-select
-###  Updatable controlled components(input & select) are part of each todo list item.
+- ###  Updatable controlled components(input & select) are part of each todo list item.
 - ### The input field component is preset to match the current todo item description text.
 - ### A traditional select component is used to reset the todo priority level:  
     - Low, Medium, High. 

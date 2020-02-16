@@ -108,8 +108,7 @@ function App (){
   return (
     <div>
         <div style = {{width: '50%', margin: '50px auto'}} >
-            <h3> Todos with controlled components using hooks</h3> 
-        
+            <h3> Todos with controlled components using hooks</h3>       
         </div>
     
     
