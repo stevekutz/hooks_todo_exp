@@ -25,7 +25,10 @@ function App (){
     }
     
     const handleChange = e => {
-        const {value} =  e.target;    
+        // if you are debugging and want to see event details
+        // e.persist()
+        const {value} =  e.target; 
+        console.log('>>> value', e)   
         setTask(value); 
     }
 
