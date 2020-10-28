@@ -1,0 +1,21 @@
+.Todo {
+    display: flex;
+    flex-direction: column;
+    background-color: lightsteelblue;
+    width: 100%;
+    outline-style: none;
+    margin: 16px auto;
+    border: 5px solid rgb(180, 174, 174);
+    box-shadow: 0 2px 3px #eee;
+    padding: 16px;
+    text-align: center;
+    border-radius: 10px;
+    font-style: italic;
+}
+
+.Input {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: light;
+    color: dodgerblue;
+    border-radius: 4px;
+}

@@ -117,7 +117,7 @@ function App (){
         </div>
     
     
-        <div style = {{width: '40%', margin: '10px auto'}}> 
+        <div style = {{width: '90%', margin: '10px auto'}}> 
                 
             <div> 
 
@@ -127,7 +127,7 @@ function App (){
                 />    
 
                 <NewTodo 
-                    style = {{width: '100%', outlineStyle: 'none', color: 'dodgerblue'}}
+                    // style = {{width: '100%', outlineStyle: 'none', color: 'dodgerblue'}}
                     placeholder = 'the placeholder text'
                     value = {task}
                     onChange = {handleChange}                

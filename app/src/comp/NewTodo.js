@@ -1,18 +1,19 @@
 import React from 'react';
+import classes from './newtodo.module.css';
 
 const NewTodo = ({style, placeholder, value, onChange}) => {
 
     return (
-        <React.Fragment>        
+        <div className = {classes.Todo}>        
             <label> enter todo description: </label>
 
             <input
-                style = {style}
+                className = {classes.Input}
                 placeholder = {placeholder}
                 value = {value}
                 onChange = {onChange}      
             />
-        </React.Fragment>
+        </div>
     )
 }
 
