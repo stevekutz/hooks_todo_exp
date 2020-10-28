@@ -1,14 +1,16 @@
 import React from 'react';
 import {useState} from 'reinspect';
-import Select from 'react-select';
+// import Select from 'react-select';
+import AddClearForm from './comp/AddClear';
+import NewTodo from './comp/NewTodo';
+import Todos from './comp/Todos';
+import SelectDropDown from './comp/SelectDropDown';
 
-const taskStyle = {borderRadius: '1px 2px 2px 4px', margin: '2px', border: '1px solid grey'}
- 
-const options = [
-    { value: 'Low', label: "Low" },
-    { value: 'Medium', label: "Medium" },
-    { value: 'High', label: "High"}
-];
+// const options = [
+//     { value: 'Low', label: "Low" },
+//     { value: 'Medium', label: "Medium" },
+//     { value: 'High', label: "High"}
+// ];
 
 function App (){
     const [task, setTask] = useState('', "Task");
@@ -20,9 +22,9 @@ function App (){
     const initial = {selectedKey: null};
     const [dropDownVal, setDropDownVal] = useState(initial, "DropDownValues")
     
-    const updateDropDown = value => {
-        setDropDownVal({...dropDownVal, selectedKey: value});  
-    }
+    // const updateDropDown = value => {
+    //     setDropDownVal({...dropDownVal, selectedKey: value});  
+    // }
     
     const handleChange = e => {
         // if you are debugging and want to see event details
@@ -110,80 +112,45 @@ function App (){
 
   return (
     <div>
-        <div style = {{width: '50%', margin: '50px auto'}} >
+        <div style = {{width: '60%', margin: '50px auto'}} >
             <h3> Todos with controlled components using hooks</h3>       
         </div>
     
     
-        <div style = {{width: '30%', margin: '10px auto'}}> 
+        <div style = {{width: '40%', margin: '10px auto'}}> 
                 
             <div> 
-                <label> Choose todo priority:</label>
-                <Select
-                    width = '50px'
-                    value = {options.filter(({value}) => value === dropDownVal.selectedKey)}
-                    onChange={({ value }) => updateDropDown(value)}
-                    options = {options}
-                />
-                
-                <label> enter todo description: </label>
-                <input
-                    style = {{width: '100%', outlineStyle: 'none'}}
+
+                <SelectDropDown 
+                    dropDownVal = {dropDownVal}
+                    setDropDownVal = {setDropDownVal}
+                />    
+
+                <NewTodo 
+                    style = {{width: '100%', outlineStyle: 'none', color: 'dodgerblue'}}
                     placeholder = 'the placeholder text'
                     value = {task}
-                    onChange = {handleChange}          
+                    onChange = {handleChange}                
                 />
-            
-                <form  onSubmit = {handleSubmit}>
-                    <div> 
-                        <div>
-                            <button type = 'submit' > Add Todo </button> 
-                            <button onClick = {clearTodos}> Clear All Todos</button>                                   
-                        </div>
-                    </div>
-                        
-                </form>
+
+                <AddClearForm 
+                    handleSubmit = {handleSubmit}
+                    clearTodos = {clearTodos}
+                />
+
             </div>
-        
-            <div > 
-                {todos.map((item, index) => (
-                    <div key = {index} id = {index}  style = {taskStyle}>
             
-                        <div > Task : {item.value}    </div>
-                        <div>
-                        
-                            <label>Task:</label>
-                            <input
-                                style = {{outlineStyle: 'none'}}
-                                label = 'Task: '
-                                placeholder = {todos[index].value}
-                                id = {index}
-                                value = {index.toString() === activeIndex  ? updatedTask : todos[index].value}
-                                onChange = {(id) => handleUpdatedTask(id)}
-                                onClick = {(id) => handleUpdatedDescriptionId(id)}
-                            />
-
-                            <label>Priority: {item.priority}</label>
-                            <select id = {index} onChange = {handlePriority}>
-                                <option> Low </option>
-                                <option> Medium </option>
-                                <option> High </option>
-                            </select>
-                        </div>
-                        <button 
-                            id = {index} 
-                            disabled = {index.toString() === activeIndex ? false : true}
-                            onClick = {updateTask}
-                        > Update Task</button>
-
-                        <button onClick = {handleDelete} > delete todo</button>
-                        <div id = {index} onClick = {(id) => toggleComplete(id)}  > Done: {item.complete.toString()}    </div>
-                        <button id = {index} onClick = {(id) => toggleComplete(id)} > Toggle Complete</button>
-
-                    </div>
-                ))}
-            
-            </div>  
+            <Todos
+                todos = {todos}
+                handleUpdatedTask = {handleUpdatedTask}
+                handleUpdatedDescriptionId = {handleUpdatedDescriptionId}
+                handlePriority = {handlePriority}
+                updateTask = {updateTask}
+                activeIndex = {activeIndex}
+                updatedTask = {updatedTask}
+                handleDelete = {handleDelete}
+                toggleComplete = {toggleComplete}
+            />
             
         </div>
     </div>
