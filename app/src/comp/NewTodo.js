@@ -4,8 +4,8 @@ import classes from './newtodo.module.css';
 const NewTodo = ({style, placeholder, value, onChange}) => {
 
     return (
-        <div className = {classes.Todo}>        
-            <label> enter todo description: </label>
+        <div className = {classes.NewTodoStyle}>        
+            <label className = {classes.Label}> New Todo </label>
 
             <input
                 className = {classes.Input}

@@ -1,21 +1,29 @@
-.Todo {
+.NewTodoStyle {
     display: flex;
     flex-direction: column;
-    background-color: lightsteelblue;
+    background-color: rgb(44, 130, 241);
     width: 100%;
     outline-style: none;
     margin: 16px auto;
-    border: 5px solid rgb(180, 174, 174);
-    box-shadow: 0 2px 3px #eee;
     padding: 16px;
     text-align: center;
-    border-radius: 10px;
+
+    
     font-style: italic;
+}
+
+.Label {
+    border: 1px solid rgb(63, 63, 63);
+    background-color: rgb(202, 209, 216);
+    padding: 4px;
+    margin: 4px auto;
+    border-radius: 6px;
 }
 
 .Input {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: light;
     color: dodgerblue;
+    border: 1px solid rgb(63, 63, 63);
     border-radius: 4px;
 }

@@ -1,10 +1,12 @@
 import React from 'react';
 import {useState} from 'reinspect';
 // import Select from 'react-select';
-import AddClearForm from './comp/AddClear';
+import AddClearForm from './comp/AddClearForm';
 import NewTodo from './comp/NewTodo';
 import Todos from './comp/Todos';
 import SelectDropDown from './comp/SelectDropDown';
+import classes from './app.module.css'
+
 
 // const options = [
 //     { value: 'Low', label: "Low" },
@@ -111,31 +113,36 @@ function App (){
     }
 
   return (
-    <div>
-        <div style = {{width: '60%', margin: '50px auto'}} >
-            <h3> Todos with controlled components using hooks</h3>       
+    <div style = {{backgroundColor: 'darkblue', height: '100vh'}}>
+        <div style = {{width: '60%', margin: '0 auto', textAlign: 'center', color: 'white'}} >
+            <h3 style = {{padding: '20px'}}> Todos with controlled components using hooks</h3>       
         </div>
     
     
-        <div style = {{width: '90%', margin: '10px auto'}}> 
+        <div style = {{width: '60%', margin: '10px auto'}}> 
                 
-            <div> 
+            <div className = {classes.Main}> 
 
                 <SelectDropDown 
                     dropDownVal = {dropDownVal}
                     setDropDownVal = {setDropDownVal}
                 />    
 
-                <NewTodo 
+                <NewTodo
                     // style = {{width: '100%', outlineStyle: 'none', color: 'dodgerblue'}}
-                    placeholder = 'the placeholder text'
+                    placeholder = 'enter new todo...'
                     value = {task}
                     onChange = {handleChange}                
-                />
+                >
+                
+                
+                </NewTodo> 
+                
 
                 <AddClearForm 
                     handleSubmit = {handleSubmit}
                     clearTodos = {clearTodos}
+                    className = {classes.Button}
                 />
 
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 // import {useState} from 'reinspect';
 import Select from 'react-select';
-
+import classes from './selectdropdown.module.css';
 const options = [
     { value: 'Low', label: "Low" },
     { value: 'Medium', label: "Medium" },
@@ -18,7 +18,7 @@ const SelectDropDown = ({dropDownVal, setDropDownVal}) => {
 
 
     return (
-        <React.Fragment>
+        <div className = {classes.DropDown}>
             <label> Choose todo priority:</label>
             <Select
                 width = '50px'
@@ -27,7 +27,7 @@ const SelectDropDown = ({dropDownVal, setDropDownVal}) => {
                 options = {options}
             />
 
-        </React.Fragment>    
+        </div>    
     )
 }
 
